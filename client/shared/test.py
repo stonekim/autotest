@@ -883,6 +883,10 @@ def runtest(job, url, tag, args, dargs,
         bindir_config = GLOBAL_CONFIG.get_config_value('COMMON',
                                                         'test_src_dir',
                                                         default="")
+        
+        subtestdir = os.path.dirname(os.path.dirname(job.control))
+        if subtestdir not in testdir_list:
+            testdir_list.append(subtestdir)
         if bindir_config:
             testdir_list.append(bindir_config)
 
@@ -892,9 +896,10 @@ def runtest(job, url, tag, args, dargs,
                 importdir = bindir = os.path.join(t_dir, path)
         if not bindir:
             raise error.TestError(testname + ': test does not exist')
-
+    
     subdir = os.path.join(dargs.pop('master_testpath', ""), testname)
     outputdir = os.path.join(job.resultdir, subdir)
+    
     if tag:
         outputdir += '.' + tag
 

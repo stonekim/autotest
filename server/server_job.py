@@ -174,6 +174,7 @@ class base_server_job(base_job.base_job):
         else:
             self.user = getpass.getuser()
 
+        self.controldir = os.path.dirname(os.path.abspath(control))
         self.args = args
         self.machines = machines
         self._client = client

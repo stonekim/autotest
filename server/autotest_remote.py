@@ -985,6 +985,11 @@ class client_logger(object):
             return  # no other types are supported
 
         # iterate over src_dirs until we find one that exists, then tar it
+        
+        if not src_dirs:
+            if name == os.path.basename(self.job.controldir):
+                src_dirs = [self.job.controldir]
+
         for src_dir in src_dirs:
             if os.path.exists(src_dir):
                 try:
